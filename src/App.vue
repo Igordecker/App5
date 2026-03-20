@@ -21,11 +21,16 @@ const novaTarefa = ref('');
   }
 
   function marcarConcluida(id) {
-    if () {
-      
-    }
     const posicao = tarefas.value.findIndex(item => item.id === id);
-    tarefas.value[posicao].status = 'concluida'
+    if (tarefas.value[posicao].status == `pendente`){
+    tarefas.value[posicao].status = 'concluida';}
+   else {
+    tarefas.value[posicao].status = 'pendente';
+   }
+  }
+  function deletarTarefa(id) {
+    const posicao = tarefas.value.findIndex(item => item.id === id);
+
   }
 </script>
 
@@ -39,6 +44,7 @@ const novaTarefa = ref('');
       :class="{ concluida: item.status === 'concluida'}">
         {{ item.desc }}
       </li>
+
     </ul>
   </div>
   
