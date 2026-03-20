@@ -30,7 +30,7 @@ const novaTarefa = ref('');
   }
   function deletarTarefa(id) {
     const posicao = tarefas.value.findIndex(item => item.id === id);
-
+    tarefas.value.splice(posicao,1)
   }
 </script>
 
@@ -43,6 +43,9 @@ const novaTarefa = ref('');
       <li v-for="item in tarefas" :key="item.id" @click="marcarConcluida(item.id)"
       :class="{ concluida: item.status === 'concluida'}">
         {{ item.desc }}
+        <button @click="deletarTarefa(item.id)">
+deletarTarefa
+        </button>
       </li>
 
     </ul>
