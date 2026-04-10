@@ -1,5 +1,6 @@
 <script setup>
 import { ref, computed } from 'vue'
+import TaskChild from './components/taskChild.vue'
 const tarefas = ref([
   { id: 1, desc: 'Estudar VueJs', status: 'pendente' },
   { id: 2, desc: 'Fazer projeto', status: 'pendente' },
@@ -30,11 +31,11 @@ function salvar() {
   if (indiceEdicao.value !== -1) {
     tarefas.value[indiceEdicao.value].desc = texto.value
     indiceEdicao.value = -1
-  } 
+  }
   else {
-   const maiorId = Math.max(...tarefas.value.map(item => item.id));
+   let maiorId = Math.max(...tarefas.value.map(item => item.id));
 if(maiorId == undefined){
-  maiorId = 0
+    maiorId = 0
     tarefas.value.push({
       id: maiorId +1,
       desc: texto.value,
@@ -49,10 +50,10 @@ if(maiorId == undefined){
 
   texto.value = ''
 }
-function marcanConcluidapendente(id) {
- const posicao = tarefas.value.findIndex(item => item.id === id); 
- if (tarefas.value[posicao].status === 'concluida'){ 
-  tarefas.value[posicao].status = 'pendente'; 
+function marcarConcluidapendente(id) {
+ const posicao = tarefas.value.findIndex(item => item.id === id);
+ if (tarefas.value[posicao].status === 'concluida'){
+  tarefas.value[posicao].status = 'pendente';
 }
   else { tarefas.value[posicao].status = 'concluida' }
 }
@@ -81,13 +82,16 @@ function ordenar() {
       {{ indiceEdicao !== -1 ? 'Atualizar' : 'Adicionar' }}
     </button>
     <ul>
-      <li v-for="item in listaFiltrada" :key="item.id">
-        <span @click="marcanConcluidapendente(item.id)" :class="{ concluida: item.status === 'concluida' }">
-          {{ item.desc }}
-        </span>
-        <button  class="deletar" @click="remover(item.id)">Deletar</button>
-        <button @click="editar(item.id)">Editar</button>
-      </li>
+      <TaskChild v-for="item in listaFiltrada"
+      :key="item.id"
+      :desc="item.desc"
+      :id="item.id"
+      :status="item.status"
+      @excluir="remover"
+      @editar="editar"
+      @marcar="marcarConcluidapendente">
+      </TaskChild>
+
     </ul>
     <input type="text" v-model="filtro" placeholder="Filtrar tarefas"/>
     <button @click="ordenar">Ordenar</button>
@@ -104,14 +108,13 @@ function ordenar() {
 }
 div.container {
   text-align: center;
-  background-color: 
+  background-color: gray
 }
-li {
+li{
   cursor: pointer;
-  margin:  10px 0;
-  color: gray;
+  color: blue;
+  margin: 10px;
 }
-
 button {
   margin-left: 5px;
   border-radius: 6px;
