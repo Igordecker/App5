@@ -1,7 +1,8 @@
 <script setup>
 import { ref, computed } from 'vue'
 import TaskChild from './components/taskChild.vue'
-import { marcarConcluidapendente, ordenar, salvar, texto, editar, remover, tarefas } from './utils/tarefasUtils';
+import { marcarConcluidapendente, ordenar, salvar, texto, editar, remover} from './utils/tarefasUtils';
+import { tarefas } from './Data/tarefas';
 import ordenarButtonChild from './components/ordenarButtonChild.vue';
 import salvarButtonChild from './components/salvarButtonChild.vue';
 const filtro = ref('')

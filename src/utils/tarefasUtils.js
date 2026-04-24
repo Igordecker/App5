@@ -1,6 +1,5 @@
-import { listaTarefas } from "@/Data/tarefas";
+import { tarefas } from "@/Data/tarefas";
 import { ref } from "vue";
-const tarefas = ref(listaTarefas);
 const indiceEdicao = ref(-1);
 const texto = ref('')
 function marcarConcluidapendente (id) {
@@ -49,7 +48,7 @@ function editar(id) {
  function remover (id) {
   tarefas.value = tarefas.value.filter(itemt => itemt.id !== id)
 }
-export {marcarConcluidapendente, ordenar, salvar, texto, indiceEdicao, editar, remover, tarefas};
+export {marcarConcluidapendente, ordenar, salvar, texto, indiceEdicao, editar, remover};
 
 
 
